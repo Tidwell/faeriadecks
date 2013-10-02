@@ -1,18 +1,51 @@
 <div>
-	<div class="row-fluid fill">
-		<div class="span3 well">
+	<div class="row-fluid">
+		<h4 class="pull-left">Faeria Deckbuilder</h4>
+		<div class="toperror alert alert-error" ng-show="error=='limit3'">
+			You can only have 3 of each card in a deck.
+		</div>
+
+		<button class="clearbtn btn btn-danger pull-right" ng-click="clearDeck()">
+			<i class="icon-white icon-trash"></i>
+			Clear Deck
+		</button>
+	</div>
+	<div class="row-fluid">
+		<div class="span6 well">
 			<div class="cardlist">
-				<ul>
-					<li ng-repeat="card in allCards.cards | filter:search"
-						ng-click ="addToDeck(card)">{{card.name}}</li>
-				</ul>
+				<table class="headertable table table-striped table-hover table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th class="name">Name</th>
+							<th class="type">Type</th>
+							<th class="num">G</th>
+							<th class="num">F</th>
+							<th class="num">L</th>
+							<th class="pl">P/L</th>
+							<th class="num">R</th>
+						</tr>
+					</thead>
+				</table>
+				<table class="bodytable table table-striped table-hover table-bordered table-condensed">
+					<tbody>
+						<tr ng-repeat="card in allCards.cards | filter:search" ng-click ="addToDeck(card)">
+							<td class="name">{{card.name}}</td>
+							<td class="type">{{card.type}}</td>
+							<td class="num">{{card.gold}}</td>
+							<td class="num">{{card.faeria}}</td>
+							<td class="num" land-color="card.landColor">{{card.landCost}}</td>
+							<td class="pl">{{powerLifeString(card)}}</td>
+							<td class="num">{{card.rarity}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<hr />
 			<form class="form-search">
-				<input type="text" class="input-medium search-query" ng-model="searchText">
+				<input type="text" class="input-block-level search-query" ng-model="searchText">
 			</form>
 			<form class="row-fluid">
-				<div class="span6">
+				<div class="span4">
 					<label class="checkbox">
 						<input type="checkbox" ng-model="showBlue">
 						Blue
@@ -34,7 +67,7 @@
 						Human
 					</label>
 				</div>
-				<div class="span6">
+				<div class="span4">
 					<label class="checkbox">
 						<input type="checkbox" ng-model="showCreature">
 						Creature
@@ -52,25 +85,123 @@
 						Fate
 					</label>
 				</div>
+				<div class="span4">
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showCommon">
+						Common
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showUncommon">
+						Uncommon
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showEpic">
+						Epic
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showRare">
+						Rare
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showLegendary">
+						Legendary
+					</label>
+				</div>
 			</form>
 		</div>
-		<div class="span5 well">
+		<div class="span6 well">
 			<div class="decklist">
-				<ul>
-					<li ng-repeat="card in deck" ng-click="removeFromDeck(card)">
-						{{card.quantity}}x {{card.name}}
-					</li>
-				</ul>
+				<table class="headertable table table-striped table-hover table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th class="num">#</th>
+							<th class="name">Name</th>
+							<th class="type">Type</th>
+							<th class="num">G</th>
+							<th class="num">F</th>
+							<th class="num">L</th>
+							<th class="pl">P/L</th>
+							<th class="num">R</th>
+						</tr>
+					</thead>
+				</table>
+				<table class="bodytable table table-striped table-hover table-bordered table-condensed">
+					<tbody>
+						<tr ng-repeat="card in deck" ng-click="removeFromDeck(card)">
+							<td class="num">{{card.quantity}}</td>
+							<td class="name">{{card.name}}</td>
+							<td class="type">{{card.type}}</td>
+							<td class="num">{{card.gold}}</td>
+							<td class="num">{{card.faeria}}</td>
+							<td class="num" land-color="card.landColor">{{card.landCost}}</td>
+							<td class="pl">{{powerLifeString(card)}}</td>
+							<td class="num">{{card.rarity}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</div>
-		<div class="span3">
-			<div class="stats">Total Cards: {{countDeck()}}</div>
-			<button class="btn btn-danger" ng-click="clearDeck()">
-				<i class="icon-white icon-trash"></i>
-				Clear Deck
-			</button>
-			<div class="alert alert-error" ng-show="error=='limit3'">
-				You can only have 3 of each card in a deck.
+
+			<div class="row-fluid">
+				<div class="stats span6">
+					<table class="table table-striped table-hover table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th>Deck Composition</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="type">Total Cards</td>
+								<td class="num"><strong>{{countDeck()}}</strong></td>
+							</tr>
+								<td class="type">Creature</td>
+								<td class="num">{{countType('creature')}}</td>
+							</tr>
+								<td class="type">Structure</td>
+								<td class="num">{{countType('structure')}}</td>
+							</tr>
+								<td class="type">Event</td>
+								<td class="num">{{countType('event')}}</td>
+							</tr>
+							<tr>
+								<td class="type">0-Faeria Creatures</td>
+								<td class="num">{{countZeroF()}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="stats span6">
+					<table class="table table-striped table-hover table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th>Resources</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="type">Gold</td>
+								<td class="num">{{countGold()}}</td>
+							</tr>
+								<td class="type">Faeria</td>
+								<td class="num">{{countFaeria()}}</td>
+							</tr>
+								<td class="type">Lakes</td>
+								<td class="num">{{countColor('blue')}}</td>
+							</tr>
+								<td class="type">Forests</td>
+								<td class="num">{{countColor('green')}}</td>
+							</tr>
+							</tr>
+								<td class="type">Mountains</td>
+								<td class="num">{{countColor('red')}}</td>
+							</tr>
+							</tr>
+								<td class="type">Deserts</td>
+								<td class="num">{{countColor('yellow')}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

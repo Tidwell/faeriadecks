@@ -10,10 +10,17 @@ angular.module('faeriaDeckbuilderApp')
 		$scope.showRed = true;
 		$scope.showYellow = true;
 		$scope.showHuman = true;
+
 		$scope.showCreature = true;
 		$scope.showStructure = true;
 		$scope.showEvent = true;
 		$scope.showFate = true;
+
+		$scope.showCommon = true;
+		$scope.showUncommon = true;
+		$scope.showEpic = true;
+		$scope.showRare = true;
+		$scope.showLegendary = true;
 
 		$scope.error = null;
 
@@ -56,6 +63,51 @@ angular.module('faeriaDeckbuilderApp')
 			return total;
 		};
 
+		$scope.countType = function(type) {
+			var total = 0;
+			for (var card in $scope.deck) {
+				if ($scope.deck[card].type === type) {
+					total += $scope.deck[card].quantity;
+				}
+			}
+			return total;
+		};
+
+		$scope.countGold = function() {
+			var total = 0;
+			for (var card in $scope.deck) {
+				total += $scope.deck[card].gold*$scope.deck[card].quantity;
+			}
+			return total;
+		};
+
+		$scope.countFaeria = function() {
+			var total = 0;
+			for (var card in $scope.deck) {
+				total += $scope.deck[card].faeria*$scope.deck[card].quantity;
+			}
+			return total;
+		};
+
+		$scope.countColor = function(color) {
+			var total = 0;
+			for (var card in $scope.deck) {
+				if ($scope.deck[card].landColor === color) {
+					total += $scope.deck[card].landCost*$scope.deck[card].quantity;
+				}
+			}
+			return total;
+		};
+
+		$scope.countZeroF = function() {
+			var total = 0;
+			for (var card in $scope.deck) {
+				if ($scope.deck[card].type === 'creature' && !Number($scope.deck[card].faeria)) {
+					total += $scope.deck[card].quantity;
+				}
+			}
+			return total;
+		};
 		$scope.search = function(item) {
 			if (item.landColor === 'blue' && !$scope.showBlue) { return false; }
 			if (item.landColor === 'green' && !$scope.showGreen) { return false; }
@@ -68,11 +120,24 @@ angular.module('faeriaDeckbuilderApp')
 			if (item.type === 'event' && !$scope.showEvent) { return false; }
 			if (item.type === 'fate' && !$scope.showFate) { return false; }
 
+			if (item.rarity === 'C' && !$scope.showCommon) { return false; }
+			if (item.rarity === 'U' && !$scope.showUncommon) { return false; }
+			if (item.rarity === 'E' && !$scope.showEpic) { return false; }
+			if (item.rarity === 'R' && !$scope.showRare) { return false; }
+			if (item.rarity === 'L' && !$scope.showLegendary) { return false; }
+
 			if (item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1) {
 				return true;
 			}
 			return false;
-		}
+		};
+
+		$scope.powerLifeString = function(card) {
+			if (!card.power && !card.life) { return ''; }
+
+			return Number(card.power) + '/' + card.life;
+		};
+
 
 		function save() {
 			skipReload();

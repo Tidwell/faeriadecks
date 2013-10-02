@@ -2,17 +2,67 @@
 html, body {
     height: 100%;
 }
-.fill {
-	max-height: 90%;
-	height: 90%;
+.clearbtn {
+	margin-top: 5px;
 }
-.cardlist {
+.cardlist .headertable, .decklist .headertable {
+	margin-bottom: 0;
+}
+.cardlist .bodytable {
 	height: 500px;
-	display: block;
 	overflow: scroll;
+	display: block;
 }
-.cardlist li, .decklist li {
-	list-style-type: none;
-	border-bottom: 1px dashed;
+.cardlist th.num, .cardlist td.num,
+.decklist th.num, .decklist td.num, .stats td.num {
+	text-align: center;
+}
+.cardlist tr, .decklist tr {
 	cursor: pointer;
+	width: 100%;
+}
+.cardlist td.name, .cardlist th.name,
+.decklist td.name, .decklist th.name {
+	width: 190px;
+}
+.cardlist td.num,
+.decklist td.num {
+	width: 30px;
+	padding: 2px;
+}
+.cardlist th.num, .decklist th.num {
+	width: 30px;
+	padding: 2px;
+}
+
+.cardlist td.type, .cardlist th.type,
+.decklist td.type, .decklist th.type {
+	width: 60px;
+}
+
+.cardlist td.pl, .cardlist th.pl,
+.decklist td.pl, .decklist th.pl {
+	width: 30px;
+	text-align: center;
+}
+.toperror {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	margin-left: -150px;
+	width: 300px;
+	text-align: center;
+}
+
+.land-blue {
+	color: #6cb1de;
+}
+.land-green {
+	color: #a0d66c;
+}
+.land-red {
+	color: #cf5850;
+}
+.land-yellow {
+	color: #f5ce43;
 }
