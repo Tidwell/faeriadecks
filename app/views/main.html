@@ -8,15 +8,16 @@
 			<i class="icon-white icon-trash"></i>
 			Clear Deck
 		</button>
-		<button class="sharebtn btn pull-right" ng-show="!isShared">
+		<button class="sharebtn btn pull-right" ng-show="!isShared" ng-click="share()">
 			<i class="icon-globe"></i> Share
 		</button>
-		<button class="sharebtn btn btn-primary pull-right" ng-show="isShared">
+		<button class="sharebtn btn btn-primary pull-right" ng-show="isShared" ng-click="showUrl=!showUrl">
 			<i class="icon-globe icon-white"></i> Is Shared
 		</button>
 		<form class="deckname form pull-right">
 			<input placeholder="Deck Name" type="text" class="input" ng-model="deckName">
 		</form>
+		<input class="input-block-level" type="text" disabled ng-model="sharedUrl" ng-show="showUrl" />
 	</div>
 	<div class="row-fluid">
 		<div class="span6 well">

@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('faeriaDeckbuilderApp')
-	.controller('MainCtrl', function($scope, $location, cards, skipReload) {
+	.controller('MainCtrl', function($scope, $location, cards, skipReload, $http) {
+		var alert = window.alert;
+
 		$scope.allCards = cards.get();
 
 		$scope.searchText = '';
@@ -30,7 +32,27 @@ angular.module('faeriaDeckbuilderApp')
 
 		$scope.filterColumn = 'name';
 
+		$scope.share = function() {
+			save();
+			var deckInfo = $location.hash();
+			$http({
+				method: 'GET',
+				url: '/share?deckInfo='+deckInfo
+			}).
+			success(function(data) {
+				skipReload();
+				$scope.isShared = true;
+				$scope.sharedUrl = 'faeriadecks.com/deckbuilder#'+data.hash;
+				$location.hash(data.hash);
+				$scope.showUrl = true;
+			}).
+			error(function() {
+				alert('error saving');
+			});
+		};
+
 		$scope.addToDeck = function(card) {
+			$scope.isShared = false;
 			$scope.error = null;
 			if ($scope.deck[card.name]) {
 				if ($scope.deck[card.name].quantity < 3) {
@@ -46,6 +68,7 @@ angular.module('faeriaDeckbuilderApp')
 		};
 
 		$scope.removeFromDeck = function(card) {
+			$scope.isShared = false;
 			$scope.error = null;
 			$scope.deck[card.name].quantity--;
 			if (!$scope.deck[card.name].quantity) {
@@ -80,7 +103,7 @@ angular.module('faeriaDeckbuilderApp')
 		$scope.countGold = function() {
 			var total = 0;
 			for (var card in $scope.deck) {
-				total += $scope.deck[card].gold*$scope.deck[card].quantity;
+				total += $scope.deck[card].gold * $scope.deck[card].quantity;
 			}
 			return total;
 		};
@@ -88,7 +111,7 @@ angular.module('faeriaDeckbuilderApp')
 		$scope.countFaeria = function() {
 			var total = 0;
 			for (var card in $scope.deck) {
-				total += $scope.deck[card].faeria*$scope.deck[card].quantity;
+				total += $scope.deck[card].faeria * $scope.deck[card].quantity;
 			}
 			return total;
 		};
@@ -97,7 +120,7 @@ angular.module('faeriaDeckbuilderApp')
 			var total = 0;
 			for (var card in $scope.deck) {
 				if ($scope.deck[card].landColor === color) {
-					total += $scope.deck[card].landCost*$scope.deck[card].quantity;
+					total += $scope.deck[card].landCost * $scope.deck[card].quantity;
 				}
 			}
 			return total;
@@ -113,22 +136,50 @@ angular.module('faeriaDeckbuilderApp')
 			return total;
 		};
 		$scope.search = function(item) {
-			if (item.landColor === 'blue' && !$scope.showBlue) { return false; }
-			if (item.landColor === 'green' && !$scope.showGreen) { return false; }
-			if (item.landColor === 'red' && !$scope.showRed) { return false; }
-			if (item.landColor === 'yellow' && !$scope.showYellow) { return false; }
-			if (item.landColor === 'human' && !$scope.showHuman) { return false; }
+			if (item.landColor === 'blue' && !$scope.showBlue) {
+				return false;
+			}
+			if (item.landColor === 'green' && !$scope.showGreen) {
+				return false;
+			}
+			if (item.landColor === 'red' && !$scope.showRed) {
+				return false;
+			}
+			if (item.landColor === 'yellow' && !$scope.showYellow) {
+				return false;
+			}
+			if (item.landColor === 'human' && !$scope.showHuman) {
+				return false;
+			}
 
-			if (item.type === 'creature' && !$scope.showCreature) { return false; }
-			if (item.type === 'structure' && !$scope.showStructure) { return false; }
-			if (item.type === 'event' && !$scope.showEvent) { return false; }
-			if (item.type === 'fate' && !$scope.showFate) { return false; }
+			if (item.type === 'creature' && !$scope.showCreature) {
+				return false;
+			}
+			if (item.type === 'structure' && !$scope.showStructure) {
+				return false;
+			}
+			if (item.type === 'event' && !$scope.showEvent) {
+				return false;
+			}
+			if (item.type === 'fate' && !$scope.showFate) {
+				return false;
+			}
 
-			if (item.rarity === 'C' && !$scope.showCommon) { return false; }
-			if (item.rarity === 'U' && !$scope.showUncommon) { return false; }
-			if (item.rarity === 'E' && !$scope.showEpic) { return false; }
-			if (item.rarity === 'R' && !$scope.showRare) { return false; }
-			if (item.rarity === 'L' && !$scope.showLegendary) { return false; }
+			if (item.rarity === 'C' && !$scope.showCommon) {
+				return false;
+			}
+			if (item.rarity === 'U' && !$scope.showUncommon) {
+				return false;
+			}
+			if (item.rarity === 'E' && !$scope.showEpic) {
+				return false;
+			}
+			if (item.rarity === 'R' && !$scope.showRare) {
+				return false;
+			}
+			if (item.rarity === 'L' && !$scope.showLegendary) {
+				return false;
+			}
 
 			if (item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1) {
 				return true;
@@ -174,7 +225,9 @@ angular.module('faeriaDeckbuilderApp')
 		};
 
 		$scope.powerLifeString = function(card) {
-			if (!card.power && !card.life) { return ''; }
+			if (!card.power && !card.life) {
+				return '';
+			}
 
 			return Number(card.power) + '/' + card.life;
 		};
@@ -188,10 +241,12 @@ angular.module('faeriaDeckbuilderApp')
 		function serialize() {
 			var str = '';
 			for (var card in $scope.deck) {
-				if (str.length) { str += ':'; }
-				str += $scope.deck[card].id + ($scope.deck[card].quantity > 1 ? ','+$scope.deck[card].quantity : '');
+				if (str.length) {
+					str += ':';
+				}
+				str += $scope.deck[card].id + ($scope.deck[card].quantity > 1 ? ',' + $scope.deck[card].quantity : '');
 			}
-			str = ($scope.deckName ? $scope.deckName : '') +''+ '@' + str;
+			str = ($scope.deckName ? $scope.deckName : '') + '' + '@' + str;
 			return str;
 		}
 
@@ -199,8 +254,10 @@ angular.module('faeriaDeckbuilderApp')
 			var nameSplit = encoded.split('@');
 			$scope.deckName = nameSplit[0];
 			var deckSplit = encoded.split('@')[1].split(':');
-			if (typeof deckSplit === 'string') { deckSplit = [deckSplit]; }
-			deckSplit.forEach(function(str){
+			if (typeof deckSplit === 'string') {
+				deckSplit = [deckSplit];
+			}
+			deckSplit.forEach(function(str) {
 				str = str.split(',');
 				var id, quantity;
 
@@ -212,10 +269,10 @@ angular.module('faeriaDeckbuilderApp')
 					quantity = 1;
 				}
 
-				$scope.allCards.cards.forEach(function(card){
+				$scope.allCards.cards.forEach(function(card) {
 					if (card.id === id) {
 						var i = 0;
-						while (i<quantity) {
+						while (i < quantity) {
 							$scope.addToDeck(card);
 							i++;
 						}
@@ -226,13 +283,29 @@ angular.module('faeriaDeckbuilderApp')
 
 		//when we get cards we parse the url
 		$scope.$watch('allCards.cards', function() {
-			if (!$scope.allCards.cards.length) { return; }
+			if (!$scope.allCards.cards.length) {
+				return;
+			}
 			var deck = $location.hash();
+			if (deck.length === 5 && deck.indexOf('@') === -1) {
+				$http.get('/load?shortKey='+deck).success(function(data) {
+					unserialize(data.data[0].fullInfo);
+					$location.hash(deck);
+					$scope.isShared = true;
+					$scope.sharedUrl = 'faeriadecks.com/deckbuilder#'+deck;
+				});
+				return;
+			}
 			if (deck) {
 				unserialize(deck);
 			}
 		});
 
-		$scope.$watch('deckName', function() { if ($scope.deckName) { save(); }});
+		$scope.$watch('deckName', function(newVal, oldVal) {
+			if ($scope.deckName && oldVal) {
+				$scope.isShared = false;
+				save();
+			}
+		});
 
 	});
