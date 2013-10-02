@@ -2,8 +2,12 @@
 html, body {
     height: 100%;
 }
-.clearbtn {
+.hdr-bar .clearbtn,
+.hdr-bar .sharebtn {
 	margin-top: 5px;
+}
+.hdr-bar .sharebtn {
+	margin-right: 10px;
 }
 .hdr-bar .deckname {
 	margin-top: 6px;

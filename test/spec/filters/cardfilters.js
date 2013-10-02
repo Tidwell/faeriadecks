@@ -11,9 +11,5 @@ describe('Filter: cardfilters', function () {
     cardfilters = $filter('cardfilters');
   }));
 
-  it('should return the input prefixed with "cardfilters filter:"', function () {
-    var text = 'angularjs';
-    expect(cardfilters(text)).toBe('cardfilters filter: ' + text);
-  });
 
 });

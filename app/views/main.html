@@ -8,6 +8,12 @@
 			<i class="icon-white icon-trash"></i>
 			Clear Deck
 		</button>
+		<button class="sharebtn btn pull-right" ng-show="!isShared">
+			<i class="icon-globe"></i> Share
+		</button>
+		<button class="sharebtn btn btn-primary pull-right" ng-show="isShared">
+			<i class="icon-globe icon-white"></i> Is Shared
+		</button>
 		<form class="deckname form pull-right">
 			<input placeholder="Deck Name" type="text" class="input" ng-model="deckName">
 		</form>
@@ -156,12 +162,15 @@
 								<td class="type">Total Cards</td>
 								<td class="num"><strong>{{countDeck()}}</strong></td>
 							</tr>
+							<tr>
 								<td class="type">Creature</td>
 								<td class="num">{{countType('creature')}}</td>
 							</tr>
+							<tr>
 								<td class="type">Structure</td>
 								<td class="num">{{countType('structure')}}</td>
 							</tr>
+							<tr>
 								<td class="type">Event</td>
 								<td class="num">{{countType('event')}}</td>
 							</tr>
@@ -184,20 +193,23 @@
 								<td class="type">Gold</td>
 								<td class="num">{{countGold()}}</td>
 							</tr>
+							<tr>
 								<td class="type">Faeria</td>
 								<td class="num">{{countFaeria()}}</td>
 							</tr>
+							<tr>
 								<td class="type">Lakes</td>
 								<td class="num">{{countColor('blue')}}</td>
 							</tr>
+							<tr>
 								<td class="type">Forests</td>
 								<td class="num">{{countColor('green')}}</td>
 							</tr>
-							</tr>
+							<tr>
 								<td class="type">Mountains</td>
 								<td class="num">{{countColor('red')}}</td>
 							</tr>
-							</tr>
+							<tr>
 								<td class="type">Deserts</td>
 								<td class="num">{{countColor('yellow')}}</td>
 							</tr>

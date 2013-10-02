@@ -11,8 +11,5 @@ describe('Service: skipReload', function () {
     skipReload = _skipReload_;
   }));
 
-  it('should do something', function () {
-    expect(!!skipReload).toBe(true);
-  });
 
 });

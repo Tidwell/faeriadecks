@@ -22,6 +22,8 @@ angular.module('faeriaDeckbuilderApp')
 		$scope.showRare = true;
 		$scope.showLegendary = true;
 
+		$scope.isShared = false;
+
 		$scope.error = null;
 
 		$scope.deck = {};
@@ -30,7 +32,7 @@ angular.module('faeriaDeckbuilderApp')
 			$scope.error = null;
 			if ($scope.deck[card.name]) {
 				if ($scope.deck[card.name].quantity < 3) {
-					$scope.deck[card.name].quantity++
+					$scope.deck[card.name].quantity++;
 				} else {
 					$scope.error = 'limit3';
 				}
@@ -141,26 +143,26 @@ angular.module('faeriaDeckbuilderApp')
 
 		function save() {
 			skipReload();
-			$location.hash(btoa(serialize($scope.deck)));
+			$location.hash(serialize($scope.deck));
 		}
 
 		function serialize() {
 			var str = '';
 			for (var card in $scope.deck) {
-				if (str.length) { str += '-'; }
-				str += $scope.deck[card].id + ($scope.deck[card].quantity > 1 ? '_'+$scope.deck[card].quantity : '');
+				if (str.length) { str += ':'; }
+				str += $scope.deck[card].id + ($scope.deck[card].quantity > 1 ? ','+$scope.deck[card].quantity : '');
 			}
-			str = ($scope.deckName ? $scope.deckName : '') +''+ ':' + str;
+			str = ($scope.deckName ? $scope.deckName : '') +''+ '@' + str;
 			return str;
 		}
 
 		function unserialize(encoded) {
-			var nameSplit = encoded.split(':');
+			var nameSplit = encoded.split('@');
 			$scope.deckName = nameSplit[0];
-			var deckSplit = encoded.split(':')[1].split('-');
+			var deckSplit = encoded.split('@')[1].split(':');
 			if (typeof deckSplit === 'string') { deckSplit = [deckSplit]; }
 			deckSplit.forEach(function(str){
-				str = str.split('_');
+				str = str.split(',');
 				var id, quantity;
 
 				if (str.length > 1) {
@@ -188,7 +190,7 @@ angular.module('faeriaDeckbuilderApp')
 			if (!$scope.allCards.cards.length) { return; }
 			var deck = $location.hash();
 			if (deck) {
-				unserialize(atob(deck));
+				unserialize(deck);
 			}
 		});
 
