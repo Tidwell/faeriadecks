@@ -1,6 +1,13 @@
 <div>
 	<div class="row-fluid fill">
 		<div class="span3 well">
+			<div class="cardlist">
+				<ul>
+					<li ng-repeat="card in allCards.cards | filter:search"
+						ng-click ="addToDeck(card)">{{card.name}}</li>
+				</ul>
+			</div>
+			<hr />
 			<form class="form-search">
 				<input type="text" class="input-medium search-query" ng-model="searchText">
 			</form>
@@ -18,8 +25,6 @@
 						<input type="checkbox" ng-model="showRed">
 						Red
 					</label>
-				</div>
-				<div class="span6">
 					<label class="checkbox">
 						<input type="checkbox" ng-model="showYellow">
 						Yellow
@@ -29,13 +34,25 @@
 						Human
 					</label>
 				</div>
+				<div class="span6">
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showCreature">
+						Creature
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showStructure">
+						Structure
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showEvent">
+						Event
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showFate">
+						Fate
+					</label>
+				</div>
 			</form>
-			<div class="cardlist">
-				<ul>
-					<li ng-repeat="card in allCards.cards | filter:search"
-						ng-click ="addToDeck(card)">{{card.name}}</li>
-				</ul>
-			</div>
 		</div>
 		<div class="span5 well">
 			<div class="decklist">

@@ -10,6 +10,10 @@ angular.module('faeriaDeckbuilderApp')
 		$scope.showRed = true;
 		$scope.showYellow = true;
 		$scope.showHuman = true;
+		$scope.showCreature = true;
+		$scope.showStructure = true;
+		$scope.showEvent = true;
+		$scope.showFate = true;
 
 		$scope.error = null;
 
@@ -58,6 +62,11 @@ angular.module('faeriaDeckbuilderApp')
 			if (item.landColor === 'red' && !$scope.showRed) { return false; }
 			if (item.landColor === 'yellow' && !$scope.showYellow) { return false; }
 			if (item.landColor === 'human' && !$scope.showHuman) { return false; }
+
+			if (item.type === 'creature' && !$scope.showCreature) { return false; }
+			if (item.type === 'structure' && !$scope.showStructure) { return false; }
+			if (item.type === 'event' && !$scope.showEvent) { return false; }
+			if (item.type === 'fate' && !$scope.showFate) { return false; }
 
 			if (item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1) {
 				return true;
