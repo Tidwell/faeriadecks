@@ -28,6 +28,8 @@ angular.module('faeriaDeckbuilderApp')
 
 		$scope.deck = {};
 
+		$scope.filterColumn = 'name';
+
 		$scope.addToDeck = function(card) {
 			$scope.error = null;
 			if ($scope.deck[card.name]) {
@@ -132,6 +134,43 @@ angular.module('faeriaDeckbuilderApp')
 				return true;
 			}
 			return false;
+		};
+
+		$scope.sort = {
+			column: 'name',
+			descending: false
+		};
+
+		$scope.selectedCls = function(column) {
+			return column === $scope.sort.column && 'sort-' + $scope.sort.descending;
+		};
+
+		$scope.changeSorting = function(column) {
+			var sort = $scope.sort;
+			if (sort.column === column) {
+				sort.descending = !sort.descending;
+			} else {
+				sort.column = column;
+				sort.descending = false;
+			}
+		};
+
+		$scope.sortDeck = {
+			column: 'name',
+			descending: false
+		};
+		$scope.selectedClsDeck = function(column) {
+			return column === $scope.sortDeck.column && 'sort-' + $scope.sortDeck.descending;
+		};
+
+		$scope.changeSortingDeck = function(column) {
+			var sort = $scope.sortDeck;
+			if (sort.column === column) {
+				sort.descending = !sort.descending;
+			} else {
+				sort.column = column;
+				sort.descending = false;
+			}
 		};
 
 		$scope.powerLifeString = function(card) {

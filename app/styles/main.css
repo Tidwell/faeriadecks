@@ -35,12 +35,12 @@ html, body {
 }
 .cardlist td.num,
 .decklist td.num {
-	width: 30px;
-	padding: 2px;
+	width: 38px;
+	padding: 1px;
 }
 .cardlist th.num, .decklist th.num {
-	width: 30px;
-	padding: 2px;
+	width: 38px;
+	padding: 1px;
 }
 
 .cardlist td.type, .cardlist th.type,
@@ -50,7 +50,7 @@ html, body {
 
 .cardlist td.pl, .cardlist th.pl,
 .decklist td.pl, .decklist th.pl {
-	width: 30px;
+	width: 50px;
 	text-align: center;
 }
 .toperror {
@@ -73,4 +73,17 @@ html, body {
 }
 .land-yellow {
 	color: #f5ce43;
+}
+.cardlist th i,
+.decklist th i {
+	display: none;
+	float: right;
+}
+.cardlist th.sort-false i.ascending,
+.decklist th.sort-false i.ascending {
+	display: block;
+}
+.cardlist th.sort-true i.descending,
+.decklist th.sort-true i.descending {
+	display: block;
 }
