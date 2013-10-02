@@ -5,6 +5,10 @@ html, body {
 .clearbtn {
 	margin-top: 5px;
 }
+.hdr-bar .deckname {
+	margin-top: 6px;
+	margin-right: 10px;
+}
 .cardlist .headertable, .decklist .headertable {
 	margin-bottom: 0;
 }

@@ -150,20 +150,25 @@ angular.module('faeriaDeckbuilderApp')
 				if (str.length) { str += '-'; }
 				str += $scope.deck[card].id + ($scope.deck[card].quantity > 1 ? '_'+$scope.deck[card].quantity : '');
 			}
+			str = ($scope.deckName ? $scope.deckName : '') +''+ ':' + str;
 			return str;
 		}
 
 		function unserialize(encoded) {
-			encoded = encoded.split('-');
-			if (typeof encoded !== 'object') { encoded = [encoded]; }
-			encoded.forEach(function(str){
+			var nameSplit = encoded.split(':');
+			$scope.deckName = nameSplit[0];
+			var deckSplit = encoded.split(':')[1].split('-');
+			if (typeof deckSplit === 'string') { deckSplit = [deckSplit]; }
+			deckSplit.forEach(function(str){
 				str = str.split('_');
+				var id, quantity;
+
 				if (str.length > 1) {
-					var id = Number(str[0]);
-					var quantity = Number(str[1]);
+					id = Number(str[0]);
+					quantity = Number(str[1]);
 				} else {
-					var id = Number(str[0]);
-					var quantity = 1;
+					id = Number(str[0]);
+					quantity = 1;
 				}
 
 				$scope.allCards.cards.forEach(function(card){
@@ -186,5 +191,7 @@ angular.module('faeriaDeckbuilderApp')
 				unserialize(atob(deck));
 			}
 		});
+
+		$scope.$watch('deckName', function() { if ($scope.deckName) { save(); }});
 
 	});
