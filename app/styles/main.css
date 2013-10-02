@@ -1,0 +1,18 @@
+/* Will be compiled down to a single stylesheet with your sass files */
+html, body {
+    height: 100%;
+}
+.fill {
+	max-height: 90%;
+	height: 90%;
+}
+.cardlist {
+	height: 500px;
+	display: block;
+	overflow: scroll;
+}
+.cardlist li, .decklist li {
+	list-style-type: none;
+	border-bottom: 1px dashed;
+	cursor: pointer;
+}

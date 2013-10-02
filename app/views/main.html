@@ -1,0 +1,60 @@
+<div>
+	<div class="row-fluid fill">
+		<div class="span3 well">
+			<form class="form-search">
+				<input type="text" class="input-medium search-query" ng-model="searchText">
+			</form>
+			<form class="row-fluid">
+				<div class="span6">
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showBlue">
+						Blue
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showGreen">
+						Green
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showRed">
+						Red
+					</label>
+				</div>
+				<div class="span6">
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showYellow">
+						Yellow
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" ng-model="showHuman">
+						Human
+					</label>
+				</div>
+			</form>
+			<div class="cardlist">
+				<ul>
+					<li ng-repeat="card in allCards.cards | filter:search"
+						ng-click ="addToDeck(card)">{{card.name}}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="span5 well">
+			<div class="decklist">
+				<ul>
+					<li ng-repeat="card in deck" ng-click="removeFromDeck(card)">
+						{{card.quantity}}x {{card.name}}
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="span3">
+			<div class="stats">Total Cards: {{countDeck()}}</div>
+			<button class="btn btn-danger" ng-click="clearDeck()">
+				<i class="icon-white icon-trash"></i>
+				Clear Deck
+			</button>
+			<div class="alert alert-error" ng-show="error=='limit3'">
+				You can only have 3 of each card in a deck.
+			</div>
+		</div>
+	</div>
+</div>
