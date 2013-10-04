@@ -3,9 +3,10 @@ html, body {
     height: 100%;
 }
 body {
-	background: url('/img/shores_wb_night.jpg');
+	background-image: url('/img/shores_wb_night.jpg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
+	background-size: cover;
 }
 .well {
 	background: rgba(0,138,130,.5);
@@ -263,4 +264,11 @@ body {
 
 .alert-info {
 	opacity: .5;
+}
+
+.ftr {
+	color: #ccc;
+}
+.ftr img {
+	 margin: 0 0 5px 0;
 }
