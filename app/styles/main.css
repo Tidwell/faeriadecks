@@ -61,6 +61,9 @@ body {
 	cursor: pointer;
 	width: 100%;
 }
+.cardlist td, .decklist td {
+	vertical-align: middle;
+}
 .cardlist th.name,
 .decklist th.name {
 	text-indent: 10px;
@@ -72,17 +75,23 @@ body {
 .cardlist td.num,
 .decklist td.num {
 	width: 8%;
-	padding: 1px;
 }
 .cardlist th.num, .decklist th.num {
 	width: 8%;
-	padding: 1px;
 }
-
 .cardlist td.type, .cardlist th.type,
 .decklist td.type, .decklist th.type {
 	width: 15%;
 }
+.cardlist td.type, .cardlist th.type,
+.decklist td.type, .decklist th.type {
+	width: 15%;
+}
+
+.decklist th.indeck, .decklist td.indeck {
+	width: 2%;
+}
+
 .cardlist th.type,
 .decklist th.type {
 	text-indent: 10px;
@@ -126,7 +135,7 @@ body {
 	text-indent: 0;
 }
 .icon-arrow-up,.icon-arrow-down {
-	top: 6px;
+	top: 8px;
 }
 .cardlist th.sort-false i.ascending,
 .decklist th.sort-false i.ascending {
