@@ -3,7 +3,6 @@
 angular.module('faeriaDeckbuilderApp')
 	.controller('MainCtrl', function($scope, $location, cards, skipReload, $http) {
 		var alert = window.alert;
-
 		$scope.allCards = cards.get();
 
 		$scope.searchText = '';

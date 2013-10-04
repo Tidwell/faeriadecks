@@ -65,7 +65,9 @@
 				</table>
 				<table class="bodytable table table-striped table-hover table-bordered table-condensed">
 					<tbody>
-						<tr ng-repeat="card in allCards.cards | orderBy: sort.column : sort.descending | filter:search" ng-click ="addToDeck(card)">
+						<tr ng-repeat="card in allCards.cards | orderBy: sort.column : sort.descending | filter:search" ng-click ="addToDeck(card)" tooltip-placement="bottom"
+								tooltip="{{card.ability}}"
+								tooltip-append-to-body="true">
 							<td class="name">{{card.name}}</td>
 							<td class="type">{{card.type}}</td>
 							<td class="num">{{card.gold}}</td>
@@ -200,9 +202,12 @@
 				</table>
 				<table class="bodytable table table-striped table-hover table-bordered table-condensed">
 					<tbody>
-						<tr ng-repeat="card in deck | toArray | orderBy: sortDeck.column : sortDeck.descending" ng-click="removeFromDeck(card)">
+						<tr ng-repeat="card in deck | toArray | orderBy: sortDeck.column : sortDeck.descending" ng-click="removeFromDeck(card)" tooltip-placement="bottom"
+								tooltip="{{card.ability}}"
+								tooltip-append-to-body="true">
 							<td class="num indeck">{{card.quantity}}</td>
-							<td class="name">{{card.name}}</td>
+							<td class="name">{{card.name}}
+							</td>
 							<td class="type">{{card.type}}</td>
 							<td class="num">{{card.gold}}</td>
 							<td class="num">{{card.faeria}}</td>
