@@ -261,3 +261,7 @@ body {
 .icon-arrow-up, .icon-arrow-down {
 	color: #FEFFEF;
 }
+
+.alert-info {
+	opacity: .5;
+}
