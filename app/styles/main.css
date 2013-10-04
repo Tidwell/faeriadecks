@@ -46,6 +46,13 @@ body {
 	border-bottom: 0;
 	border: 0;
 }
+
+@-moz-document url-prefix() {
+    .cardlist .headertable {
+        width: 97%;
+    }
+}
+
 .cardlist .headertable th, .decklist .headertable th {
 	border: 0;
 	padding: 5px 3px;
@@ -76,10 +83,10 @@ body {
 }
 .cardlist td.num,
 .decklist td.num {
-	width: 23px;
+	width: 8%;
 }
 .cardlist th.num, .decklist th.num {
-	width: 23px;
+	width: 8%;
 }
 .cardlist td.type, .cardlist th.type,
 .decklist td.type, .decklist th.type {
@@ -95,9 +102,12 @@ body {
 .decklist th.type {
 	text-indent: 15px;
 }
-.cardlist td.pl, .cardlist th.pl,
-.decklist td.pl, .decklist th.pl {
+.cardlist td.pl, .cardlist th.pl {
 	width: 13%;
+	text-align: center;
+}
+.decklist td.pl, .decklist th.pl {
+	width: 11%;
 	text-align: center;
 }
 .toperror {
