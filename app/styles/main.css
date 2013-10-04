@@ -50,7 +50,7 @@ body {
 }
 .cardlist .bodytable {
 	height: 500px;
-	overflow: scroll;
+	overflow-y: scroll;
 	display: block;
 }
 .cardlist th.num, .cardlist td.num,
@@ -243,7 +243,8 @@ body {
 
 .hdr-bar h4:after {
   content: "Faeria Deckbuilder";
-  color: #f5ce43;
+  color: #814321;
+
   text-shadow: 3px 3px 1px #600;
 }
 
@@ -254,7 +255,7 @@ body {
   position: absolute;
   top: 0;
   z-index: 2;
-  color: #814321;
+  color: #f5ce43;
   -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
 }
 
