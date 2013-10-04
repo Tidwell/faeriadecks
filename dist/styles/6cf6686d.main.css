@@ -5656,6 +5656,14 @@ body {
 	margin-top: 6px;
 	margin-right: 10px;
 }
+.cardlist, .decklist {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 .cardlist .headertable, .decklist .headertable {
 	margin-bottom: 0;
 	width: 100%;
@@ -5742,11 +5750,8 @@ body {
 	left: 0px;
 	text-indent: 0;
 }
-.icon-arrow-up {
-	top: 5px;
-}
-.icon-arrow-down {
-	bottom: 5px;
+.icon-arrow-up,.icon-arrow-down {
+	top: 6px;
 }
 .cardlist th.sort-false i.ascending,
 .decklist th.sort-false i.ascending {
@@ -5780,19 +5785,23 @@ body {
 .rarityL {
 	background: url('/img/card_rarity_legendary.png');
 }
-.gold-icon, .faeria-icon {
+.gold-icon, .faeria-icon, .land-hdr-icon {
 	width: 23px;
 	height: 23px;
 	text-indent: -9999px;
 	display: block;
 	margin: 1px auto;
+	background-size: cover;
 }
 
 .gold-icon {
-	background: url('/img/gold.png');
+	background-image: url('/img/gold.png');
 }
 .faeria-icon {
-	background: url('/img/faeria.png');
+	background-image: url('/img/faeria.png');
+}
+.land-hdr-icon {
+	background-image: url('/img/Prairie_White2.png');
 }
 
 .stats .gold-icon, .faeria-icon {
