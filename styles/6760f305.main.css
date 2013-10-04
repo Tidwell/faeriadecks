@@ -5672,6 +5672,7 @@ body {
 }
 .cardlist .headertable th, .decklist .headertable th {
 	border: 0;
+	padding: 5px 3px;
 }
 .cardlist .bodytable {
 	height: 500px;
@@ -5691,7 +5692,7 @@ body {
 }
 .cardlist th.name,
 .decklist th.name {
-	text-indent: 10px;
+	text-indent: 15px;
 }
 .cardlist td.name, .cardlist th.name,
 .decklist td.name, .decklist th.name {
@@ -5699,19 +5700,16 @@ body {
 }
 .cardlist td.num,
 .decklist td.num {
-	width: 8%;
+	width: 23px;
 }
 .cardlist th.num, .decklist th.num {
-	width: 8%;
+	width: 23px;
 }
 .cardlist td.type, .cardlist th.type,
 .decklist td.type, .decklist th.type {
-	width: 15%;
+	width: 18%;
 }
-.cardlist td.type, .cardlist th.type,
-.decklist td.type, .decklist th.type {
-	width: 15%;
-}
+
 
 .decklist th.indeck, .decklist td.indeck {
 	width: 2%;
@@ -5719,7 +5717,7 @@ body {
 
 .cardlist th.type,
 .decklist th.type {
-	text-indent: 10px;
+	text-indent: 15px;
 }
 .cardlist td.pl, .cardlist th.pl,
 .decklist td.pl, .decklist th.pl {
@@ -5747,8 +5745,8 @@ body {
 .land-yellow {
 	color: #f5ce43;
 }
-.cardlist .table th ,
-.decklist .table th {
+.cardlist .table th div ,
+.decklist .table th div {
 	position: relative;
 	vertical-align: middle;
 }
@@ -5760,7 +5758,7 @@ body {
 	text-indent: 0;
 }
 .icon-arrow-up,.icon-arrow-down {
-	top: 8px;
+	top: 4px;
 }
 .cardlist th.sort-false i.ascending,
 .decklist th.sort-false i.ascending {
