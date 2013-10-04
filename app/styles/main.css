@@ -2,6 +2,24 @@
 html, body {
     height: 100%;
 }
+body {
+	background: url('/img/shores_wb_night.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+.well {
+	background: rgba(0,138,130,.5);
+	color: #E0EEEE;
+}
+.table-striped tbody tr:nth-child(odd) td, .table-striped tbody tr:nth-child(odd) th {
+	background: rgba(0,99,95,.5);
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+	background: rgba(0,51,49,.5);
+}
+.hdr-bar button {
+	opacity: .75;
+}
 .hdr-bar .clearbtn,
 .hdr-bar .sharebtn {
 	margin-top: 5px;
@@ -15,6 +33,12 @@ html, body {
 }
 .cardlist .headertable, .decklist .headertable {
 	margin-bottom: 0;
+	width: 100%;
+	border-bottom: 0;
+	border: 0;
+}
+.cardlist .headertable th, .decklist .headertable th {
+	border: 0;
 }
 .cardlist .bodytable {
 	height: 500px;
@@ -29,28 +53,35 @@ html, body {
 	cursor: pointer;
 	width: 100%;
 }
+.cardlist th.name,
+.decklist th.name {
+	text-indent: 10px;
+}
 .cardlist td.name, .cardlist th.name,
 .decklist td.name, .decklist th.name {
-	width: 190px;
+	width: 40%;
 }
 .cardlist td.num,
 .decklist td.num {
-	width: 38px;
+	width: 8%;
 	padding: 1px;
 }
 .cardlist th.num, .decklist th.num {
-	width: 38px;
+	width: 8%;
 	padding: 1px;
 }
 
 .cardlist td.type, .cardlist th.type,
 .decklist td.type, .decklist th.type {
-	width: 60px;
+	width: 15%;
 }
-
+.cardlist th.type,
+.decklist th.type {
+	text-indent: 10px;
+}
 .cardlist td.pl, .cardlist th.pl,
 .decklist td.pl, .decklist th.pl {
-	width: 50px;
+	width: 13%;
 	text-align: center;
 }
 .toperror {
@@ -74,10 +105,23 @@ html, body {
 .land-yellow {
 	color: #f5ce43;
 }
+.cardlist .table th ,
+.decklist .table th {
+	position: relative;
+	vertical-align: middle;
+}
 .cardlist th i,
 .decklist th i {
 	display: none;
-	float: right;
+	position: absolute;
+	left: 0px;
+	text-indent: 0;
+}
+.icon-arrow-up {
+	top: 5px;
+}
+.icon-arrow-down {
+	bottom: 5px;
 }
 .cardlist th.sort-false i.ascending,
 .decklist th.sort-false i.ascending {
@@ -86,4 +130,116 @@ html, body {
 .cardlist th.sort-true i.descending,
 .decklist th.sort-true i.descending {
 	display: block;
+}
+
+.rarity-symbol {
+	text-indent: -9999px;
+	width: 11px;
+	height: 15px;
+	display: block;
+	margin: 5px auto;
+	background-repeat: no-repeat;
+}
+.rarityC {
+	background: url('/img/card_rarity_common.png');
+}
+.rarityU {
+	background: url('/img/card_rarity_uncommon.png');
+}
+.rarityE {
+	background: url('/img/card_rarity_exceptional.png');
+}
+.rarityR {
+	background: url('/img/card_rarity_rare.png');
+}
+.rarityL {
+	background: url('/img/card_rarity_legendary.png');
+}
+.gold-icon, .faeria-icon {
+	width: 23px;
+	height: 23px;
+	text-indent: -9999px;
+	display: block;
+	margin: 1px auto;
+}
+
+.gold-icon {
+	background: url('/img/gold.png');
+}
+.faeria-icon {
+	background: url('/img/faeria.png');
+}
+
+.stats .gold-icon, .faeria-icon {
+	display: inline-block;
+	margin: 0;
+}
+
+.land-icon {
+	width: 23px;
+	height: 18px;
+	text-indent: -9999px;
+	display: inline-block;
+	margin: 0;
+	background-size: cover;
+}
+
+.land-desert {
+	background-image: url('/img/card_cost_yellow.png');
+}
+.land-forest {
+	background-image: url('/img/card_cost_green.png');
+}
+.land-lake {
+	background-image: url('/img/card_cost_lake.png');
+}
+.land-mountain {
+	background-image: url('/img/card_cost_red.png');
+}
+
+
+.well input, .hdr-bar input {
+	background: rgba(0,0,0,.5);
+	color: #FFFFFD;
+}
+
+.logo {
+	background-image: url('/img/faeria_logo.png');
+	background-size: cover;
+	width: 50px;
+	display: inline-block;
+	text-indent: -999px;
+}
+
+
+
+.hdr-bar h4 {
+  position: relative;
+  font-size: 20px;
+  line-height: 20px;
+  text-shadow: -3px 0 4px #006;
+  font-family: 'Berkshire Swash', cursive;
+}
+
+
+
+.hdr-bar h4:after {
+  content: "Faeria Deckbuilder";
+  color: #f5ce43;
+  text-shadow: 3px 3px 1px #600;
+}
+
+.hdr-bar h4 a:link,
+.hdr-bar h4 a:visited,
+.hdr-bar h4 a:hover,
+.hdr-bar h4 a:active {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  color: #814321;
+  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+}
+
+.icon-arrow-up, .icon-arrow-down {
+	color: #FEFFEF;
 }
