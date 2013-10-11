@@ -1,0 +1,143 @@
+<div class="container designer">
+	<div class="row-fluid hdr-bar">
+		<h4 class="cards"><a href="/">FaeriaDecks - Card Designer</a></h4>
+	</div>
+	<br><br>
+	<div clas="row-fluid">
+		<div class="span5">
+			<div id="designer-render"></div>
+			<div class="well">
+				<strong>Keyword Cheatsheet</strong>
+				<hr>
+				<table class="table table-condensed">
+					<tr><td>Ranged attack</td><td>Ranged attack</td></tr>
+					<tr><td>Strikeback</td><td>[Strikeback#]</td></tr>
+					<tr><td>Conquest</td><td>Conquest</td></tr>
+					<tr><td>Flying</td><td>Flying</td></tr>
+					<tr><td>Charge</td><td>[Charge#]</td></tr>
+					<tr><td>Haste</td><td>Haste</td></tr>
+					<tr><td>Haunt</td><td>Haunt</td></tr>
+					<tr><td>Protection</td><td>[Protection#]</td></tr>
+					<tr><td>Accumulator</td><td>[Accumulator#]</td></tr>
+					<tr><td>Jump</td><td>Jump</td></tr>
+					<tr><td>Frenzy</td><td>Frenzy</td></tr>
+					<tr><td>Curse</td><td>Curse</td></tr>
+					<tr><td>Radiate</td><td>[Radiate#]</td></tr>
+					<tr><td>Aquatic</td><td>Aquatic</td></tr>
+					<tr><td>Auto-collect</td><td>Auto-collect</td></tr>
+				</table>
+			</div>
+		</div>
+		<div class="span6 well">
+			<br><br>
+			<form class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label">Card Color</label>
+					<div class="controls">
+						<select ng-model="opts.color">
+							<option value="red">Red</option>
+							<option value="green">Green</option>
+							<option value="blue">Blue</option>
+							<option value="yellow">Yellow</option>
+							<option value="human">Human</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Gold Cost</label>
+					<div class="controls">
+						<input type="number" ng-model="opts.gold" min="0" max="100">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Faeria Cost</label>
+					<div class="controls">
+						<input type="number" ng-model="opts.faeria" min="0" max="100">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Desert Cost</label>
+					<div class="controls">
+						<input type="number" ng-model="opts.landY" min="0" max="100">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Forest Cost</label>
+					<div class="controls">
+						<input type="number" ng-model="opts.landG" min="0" max="100">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Lake Cost</label>
+					<div class="controls">
+						<input type="number" ng-model="opts.landB" min="0" max="100">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Mountain Cost</label>
+					<div class="controls">
+						<input type="number" ng-model="opts.landR" min="0" max="100">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Name</label>
+					<div class="controls">
+						<input type="text" ng-model="opts.name">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Image</label>
+					<div class="controls">
+						<input type="file" id="imageLoader" name="imageLoader">
+						<span class="help-inline">Image should be 250x250 px</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Attack</label>
+					<div class="controls">
+						<input type="number" ng-model="opts.attack">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Life</label>
+					<div class="controls">
+						<input type="number" ng-model="opts.life">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Card Text</label>
+					<div class="controls">
+						<textarea rows="5" ng-model="opts.effect"></textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Rarity</label>
+					<div class="controls">
+						<select ng-model="opts.rarity">
+							<option value="C">Common</option>
+							<option value="U">Uncommon</option>
+							<option value="E">Exceptional</option>
+							<option value="R">Rare</option>
+							<option value="L">Legendary</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Type</label>
+					<div class="controls">
+						<select ng-model="opts.type">
+							<option value="Creature">Creature</option>
+							<option value="Structure">Structure</option>
+							<option value="Event">Event</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button class="btn btn-primary" ng-click="export()">Create Image</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -5637,6 +5637,9 @@ body {
 	background: rgba(0,138,130,.5);
 	color: #E0EEEE;
 }
+form .help-inline {
+	color: #E0EEEE;
+}
 .table-striped tbody tr:nth-child(odd) td, .table-striped tbody tr:nth-child(odd) th {
 	background: rgba(0,99,95,.5);
 }
@@ -5864,7 +5867,6 @@ body {
 }
 
 
-
 .hdr-bar h4 {
   position: relative;
   font-size: 20px;
@@ -5876,10 +5878,15 @@ body {
 
 
 .hdr-bar h4:after {
-  content: "Faeria Deckbuilder";
   color: #814321;
-
   text-shadow: 3px 3px 1px #600;
+}
+
+.hdr-bar h4.decks:after {
+	content: "FaeriaDecks - Deckbuilder";
+}
+.hdr-bar h4.cards:after {
+	content: "FaeriaDecks - Card Designer";
 }
 
 .hdr-bar h4 a:link,

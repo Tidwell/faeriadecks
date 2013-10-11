@@ -8,6 +8,10 @@ angular.module('faeriaDeckbuilderApp', ['ui.bootstrap'])
 				templateUrl: 'views/main.html',
 				controller: 'MainCtrl'
 			})
+			.when('/designer', {
+			  templateUrl: 'views/designer.html',
+			  controller: 'DesignerCtrl'
+			})
 			.otherwise({
 				redirectTo: '/deckbuilder'
 			});
