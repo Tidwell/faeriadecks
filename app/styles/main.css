@@ -21,13 +21,15 @@ form .help-inline {
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
 	background: rgba(0,51,49,.5);
 }
-.hdr-bar button {
+.hdr-bar button, .hdr-bar .btn {
 	opacity: .75;
 }
 .hdr-bar .clearbtn,
-.hdr-bar .sharebtn {
+.hdr-bar .sharebtn,
+.hdr-bar .btn {
 	margin-top: 5px;
 }
+.hdr-bar .clearbtn,
 .hdr-bar .sharebtn {
 	margin-right: 10px;
 }
@@ -262,6 +264,9 @@ form .help-inline {
 }
 .hdr-bar h4.cards:after {
 	content: "FaeriaDecks - Card Designer";
+}
+.hdr-bar h4.changelog:after {
+	content: "FaeriaDecks - Changelog";
 }
 
 .hdr-bar h4 a:link,
