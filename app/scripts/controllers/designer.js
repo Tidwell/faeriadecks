@@ -32,6 +32,7 @@ angular.module('faeriaDeckbuilderApp')
 			FAERIACARDS.render($scope.opts);
 		});
 
+		/*this all needs to be a directive*/
 		function handleImage(e) {
 			var reader = new FileReader();
 			reader.onload = function(event) {

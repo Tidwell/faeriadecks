@@ -19,6 +19,9 @@
 		</form>
 		<input class="input-block-level" type="text" disabled ng-model="sharedUrl" ng-show="showUrl" />
 	</div>
+	<div class="row-fluid version-error" ng-show="currentVersion != VERSION">
+		<span class="alert alert-error">This deck is using an outdated card list. Currently using v{{currentVersion}} (latest: v{{VERSION}}) <a ng-click="upgrade()">Click here to upgrade</a> (may incorrectly parse some cards).</span>
+	</div>
 	<div class="row-fluid">
 		<div class="span6 well">
 			<div class="cardlist">

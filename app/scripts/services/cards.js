@@ -8,23 +8,30 @@ angular.module('faeriaDeckbuilderApp')
 			cards: []
 		};
 
-		$http({
-			method: 'GET',
-			url: '/cards.json'
-		}).
-		success(function(data) {
-			cards.cards = data;
-			cards.cards.forEach(function(el,i){
-				el.id = i;
+		function makeRequest(version) {
+			var url = '/cards.json';
+			if (version) {
+				url = '/old-data/cards.'+version+'.json';
+			}
+			$http({
+				method: 'GET',
+				url: url
+			}).
+			success(function(data) {
+				cards.cards = data;
+				cards.cards.forEach(function(el,i){
+					el.id = i;
+				});
+			}).
+			error(function() {
+				alert('Could not get card data!');
 			});
-		}).
-		error(function() {
-			alert('Could not get card data!');
-		});
+		}
 
 		// Public API here
 		return {
-			get: function() {
+			get: function(version) {
+				makeRequest(version);
 				return cards;
 			}
 		};

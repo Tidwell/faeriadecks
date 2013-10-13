@@ -2,6 +2,11 @@
 
 angular.module('faeriaDeckbuilderApp')
 	.controller('MainCtrl', function($scope, $location, cards, skipReload, $http) {
+		var VERSION = 2.0;
+
+		$scope.VERSION = 2.0;
+		$scope.currentVersion = VERSION;
+
 		var alert = window.alert;
 		$scope.allCards = cards.get();
 
@@ -31,6 +36,11 @@ angular.module('faeriaDeckbuilderApp')
 
 		$scope.filterColumn = 'name';
 
+		$scope.$watch('currentVersion', function() {
+			if ($scope.currentVersion !== VERSION) {
+				cards.get($scope.currentVersion);
+			}
+		});
 		$scope.share = function() {
 			save();
 			var deckInfo = $location.hash();
@@ -50,7 +60,7 @@ angular.module('faeriaDeckbuilderApp')
 			});
 		};
 
-		$scope.addToDeck = function(card) {
+		$scope.addToDeck = function(card, noSave) {
 			$scope.isShared = false;
 			$scope.error = null;
 			if ($scope.deck[card.name]) {
@@ -63,7 +73,9 @@ angular.module('faeriaDeckbuilderApp')
 				$scope.deck[card.name] = card;
 				$scope.deck[card.name].quantity = 1;
 			}
-			save();
+			if (!noSave) {
+				save();
+			}
 		};
 
 		$scope.removeFromDeck = function(card) {
@@ -75,10 +87,18 @@ angular.module('faeriaDeckbuilderApp')
 			}
 			save();
 		};
-
-		$scope.clearDeck = function() {
-			$scope.deck = {};
+		$scope.upgrade = function() {
+			$scope.currentVersion = VERSION;
 			save();
+			$scope.clearDeck(true);
+			cards.get();
+		};
+
+		$scope.clearDeck = function(noSave) {
+			$scope.deck = {};
+			if (!noSave) {
+				save();
+			}
 		};
 
 		$scope.countDeck = function() {
@@ -245,17 +265,27 @@ angular.module('faeriaDeckbuilderApp')
 				}
 				str += $scope.deck[card].id + ($scope.deck[card].quantity > 1 ? ',' + $scope.deck[card].quantity : '');
 			}
-			str = ($scope.deckName ? $scope.deckName : '') + '' + '@' + str;
-			return str;
+			var serialized = ($scope.deckName ? $scope.deckName : '') + '' + '@' + str + '.'+$scope.currentVersion;
+			return serialized;
 		}
 
 		function unserialize(encoded) {
+			//detect version of the cardlist we are using
+			if (encoded.indexOf('.') !== -1) {
+				var s = encoded.split('.');
+				encoded = s[0];
+				$scope.currentVersion = Number(s[1]);
+			} else {
+				$scope.currentVersion = 1.0;
+			}
+
 			var nameSplit = encoded.split('@');
 			$scope.deckName = nameSplit[0];
 			var deckSplit = encoded.split('@')[1].split(':');
 			if (typeof deckSplit === 'string') {
 				deckSplit = [deckSplit];
 			}
+			$scope.clearDeck(true);
 			deckSplit.forEach(function(str) {
 				str = str.split(',');
 				var id, quantity;
@@ -272,7 +302,7 @@ angular.module('faeriaDeckbuilderApp')
 					if (card.id === id) {
 						var i = 0;
 						while (i < quantity) {
-							$scope.addToDeck(card);
+							$scope.addToDeck(card, true);
 							i++;
 						}
 					}
@@ -282,6 +312,7 @@ angular.module('faeriaDeckbuilderApp')
 
 		//when we get cards we parse the url
 		$scope.$watch('allCards.cards', function() {
+			//if we havent got a list back, ignore it
 			if (!$scope.allCards.cards.length) {
 				return;
 			}
