@@ -5914,3 +5914,7 @@ form .help-inline {
 .ftr img {
 	 margin: 0 0 5px 0;
 }
+
+.version-error a {
+	cursor: pointer;
+}
