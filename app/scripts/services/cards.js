@@ -20,7 +20,11 @@ angular.module('faeriaDeckbuilderApp')
 			success(function(data) {
 				cards.cards = data;
 				cards.cards.forEach(function(el,i){
-					el.id = i;
+					if (el.gameId) {
+						el.id = Number(el.gameId);
+					} else {
+						el.id = i;
+					}
 				});
 			}).
 			error(function() {

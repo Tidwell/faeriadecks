@@ -2,9 +2,9 @@
 
 angular.module('faeriaDeckbuilderApp')
 	.controller('MainCtrl', function($scope, $location, cards, skipReload, $http) {
-		var VERSION = 2.0;
+		var VERSION = 3.0;
 
-		$scope.VERSION = 2.0;
+		$scope.VERSION = 3.0;
 		$scope.currentVersion = VERSION;
 
 		var alert = window.alert;
@@ -247,7 +247,9 @@ angular.module('faeriaDeckbuilderApp')
 			if (!card.power && !card.life) {
 				return '';
 			}
-
+			if (card.type === 'structure') {
+				return card.life;
+			}
 			return Number(card.power) + '/' + card.life;
 		};
 
