@@ -13,7 +13,7 @@ angular.module('faeriaDeckbuilderApp')
 			attack: 2, // Number
 			life: 5, // Number
 			type: 'Creature', //'Creature', Structure', 'Event'
-			effect: 'Haste. Flying. [Charge4]. [Accumulator2]. 1 energy - Draw 2 Cards.', //String  non-value keywords can be typed.  keywords with values have to be in the form: [Keyword#]
+			effect: 'Haste. Flying. [lb] [Charge4]. [Accumulator2]. [lb] 1 energy - Draw 2 Cards.', //String  non-value keywords can be typed.  keywords with values have to be in the form: [Keyword#]
 			color: 'green', //'blue', 'green', 'red', 'yellow', 'human'
 			landB: 0, //number
 			landG: 3, //number
