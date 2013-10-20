@@ -298,3 +298,9 @@ form .help-inline {
 .version-error a {
 	cursor: pointer;
 }
+
+.image-popup-container {
+	position: absolute;
+	right: 10px;
+	bottom: 100px;
+}
