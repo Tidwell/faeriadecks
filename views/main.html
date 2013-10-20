@@ -83,7 +83,7 @@
 				</table>
 				<table class="bodytable table table-striped table-hover table-bordered table-condensed">
 					<tbody>
-						<tr ng-repeat="card in allCards.cards | orderBy: sort.column : sort.descending | filter:search" ng-click="addToDeck(card)" tooltip-placement="bottom" tooltip="{{card.ability}}" tooltip-append-to-body="true">
+						<tr ng-repeat="card in allCards.cards | orderBy: sort.column : sort.descending | filter:search" ng-click="addToDeck(card)" image-popup="card">
 							<td class="name">{{card.name}}</td>
 							<td class="type">{{card.type}}</td>
 							<td class="num">{{card.gold}}</td>
@@ -329,3 +329,5 @@
 		</div>
 	</div>
 </div>
+<div class="image-popup-container"><img src=""></div>
+<div class="render-container" style="display: none"></div>
