@@ -8,7 +8,10 @@ angular.module('faeriaDeckbuilderApp')
 			cards: []
 		};
 
+		var currentVersion;
+
 		function makeRequest(version) {
+			currentVersion = version;
 			var url = '/cards.json';
 			if (version) {
 				url = '/old-data/cards.'+version+'.json';
@@ -35,6 +38,9 @@ angular.module('faeriaDeckbuilderApp')
 		// Public API here
 		return {
 			get: function(version) {
+				if (currentVersion === version && cards.cards.length) {
+					return cards;
+				}
 				makeRequest(version);
 				return cards;
 			}

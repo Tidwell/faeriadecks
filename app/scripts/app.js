@@ -16,6 +16,10 @@ angular.module('faeriaDeckbuilderApp', ['ui.bootstrap'])
 			  templateUrl: 'views/changelog.html',
 			  controller: 'ChangelogCtrl'
 			})
+			.when('/cardlist', {
+			  templateUrl: 'views/cardlist.html',
+			  controller: 'CardlistCtrl'
+			})
 			.otherwise({
 				redirectTo: '/deckbuilder'
 			});

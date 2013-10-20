@@ -268,6 +268,9 @@ form .help-inline {
 .hdr-bar h4.changelog:after {
 	content: "FaeriaDecks - Changelog";
 }
+.hdr-bar h4.list:after {
+	content: "FaeriaDecks - Cardlist";
+}
 
 .hdr-bar h4 a:link,
 .hdr-bar h4 a:visited,
@@ -299,8 +302,27 @@ form .help-inline {
 	cursor: pointer;
 }
 
-.image-popup-container {
-	position: absolute;
-	right: 10px;
-	bottom: 100px;
+.popover {
+  max-width: none;
+  width: auto;
+}
+.image-popup-container .popover {
+  background: none;
+  border: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.image-popup-container .popover-title,
+.image-popup-container .popover.right .arrow {
+  display: none;
+}
+.image-popup-container .popover-content img {
+  width: 250px;
+  max-width: 200%;
+}
+
+.cardlist .hdr-bar form {
+	margin-right: 10px;
+	margin-top: 10px;
 }

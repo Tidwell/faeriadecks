@@ -3,6 +3,9 @@
 angular.module('faeriaDeckbuilderApp')
 	.controller('MainCtrl', function($scope, $location, cards, skipReload, $http) {
 		var VERSION = 3.0;
+		var FAERIACARDS = window.FAERIACARDS;
+
+		FAERIACARDS.clearQueue();
 
 		$scope.VERSION = 3.0;
 		$scope.currentVersion = VERSION;
