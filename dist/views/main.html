@@ -234,7 +234,7 @@
 				</table>
 				<table class="bodytable table table-striped table-hover table-bordered table-condensed">
 					<tbody>
-						<tr ng-repeat="card in deck | toArray | orderBy: sortDeck.column : sortDeck.descending" ng-click="removeFromDeck(card)" tooltip-placement="bottom" tooltip="{{card.ability}}" tooltip-append-to-body="true">
+						<tr ng-repeat="card in deck | toArray | orderBy: sortDeck.column : sortDeck.descending" ng-click="removeFromDeck(card)" image-popup="card" image-popup-positon="left">
 							<td class="num indeck">{{card.quantity}}</td>
 							<td class="name">{{card.name}}
 							</td>

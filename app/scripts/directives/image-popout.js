@@ -33,7 +33,7 @@ angular.module('faeriaDeckbuilderApp')
 							html: true,
 							content: '<img id="current-popover'+thisPopup+'" />as',
 							trigger: 'hover',
-							placement: 'right',
+							placement: attrs.imagePopupPositon ? attrs.imagePopupPositon : 'right',
 							container: '.image-popup-container'
 						});
 						$(element).on('shown.bs.popover', function() {
