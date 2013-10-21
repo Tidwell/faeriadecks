@@ -31,7 +31,7 @@ angular.module('faeriaDeckbuilderApp')
 
 						$(element).popover({
 							html: true,
-							content: '<img id="current-popover'+thisPopup+'" />as',
+							content: '<img id="current-popover'+thisPopup+'" />',
 							trigger: 'hover',
 							placement: attrs.imagePopupPositon ? attrs.imagePopupPositon : 'right',
 							container: '.image-popup-container'
