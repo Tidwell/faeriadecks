@@ -255,6 +255,7 @@ module.exports = function (grunt) {
             'images/{,*/}*.{gif,webp}',
             'styles/fonts/*',
             'img/*',
+            'img/cards/*',
             'old-data/*',
             'cards.json'
           ]
