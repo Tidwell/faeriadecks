@@ -79,7 +79,6 @@ angular.module('faeriaDeckbuilderApp')
 			if (!noSave) {
 				save();
 			}
-			updateExport();
 		};
 
 		$scope.removeFromDeck = function(card) {
@@ -90,7 +89,6 @@ angular.module('faeriaDeckbuilderApp')
 				delete $scope.deck[card.name];
 			}
 			save();
-			updateExport();
 		};
 		$scope.upgrade = function() {
 			$scope.currentVersion = VERSION;
@@ -262,6 +260,7 @@ angular.module('faeriaDeckbuilderApp')
 		function save() {
 			skipReload();
 			$location.hash(serialize($scope.deck));
+			updateExport();
 		}
 
 		function serialize() {
@@ -315,6 +314,7 @@ angular.module('faeriaDeckbuilderApp')
 					}
 				});
 			});
+			updateExport();
 		}
 
 		$scope.exportData = '';
@@ -393,7 +393,8 @@ angular.module('faeriaDeckbuilderApp')
 
 		function updateExport() {
 			var props = ['Creature', 'Event', 'Structure'];
-			$scope.exportData = '[deck="' + ($scope.deckName || '') + '"]\n';
+			var deckName = $scope.deckName ? $scope.deckName : '';
+			$scope.exportData = '[deck="' + deckName + '"]\n';
 			props.forEach(function(prop, i) {
 				var newText = '';
 				for (var id in $scope.deck) {
