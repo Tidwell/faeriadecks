@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('faeriaDeckbuilderApp')
-	.controller('MainCtrl', function($scope, $location, cards, skipReload, $http) {
+	.controller('MainCtrl', function($scope, $location, cards, skipReload, $http, $modal) {
 		var VERSION = 3.0;
 		var FAERIACARDS = window.FAERIACARDS;
 
@@ -49,12 +49,12 @@ angular.module('faeriaDeckbuilderApp')
 			var deckInfo = $location.hash();
 			$http({
 				method: 'GET',
-				url: '/share?deckInfo='+deckInfo
+				url: '/share?deckInfo=' + deckInfo
 			}).
 			success(function(data) {
 				skipReload();
 				$scope.isShared = true;
-				$scope.sharedUrl = 'faeriadecks.com/deckbuilder#'+data.hash;
+				$scope.sharedUrl = 'faeriadecks.com/deckbuilder#' + data.hash;
 				$location.hash(data.hash);
 				$scope.showUrl = true;
 			}).
@@ -79,6 +79,7 @@ angular.module('faeriaDeckbuilderApp')
 			if (!noSave) {
 				save();
 			}
+			updateExport();
 		};
 
 		$scope.removeFromDeck = function(card) {
@@ -89,6 +90,7 @@ angular.module('faeriaDeckbuilderApp')
 				delete $scope.deck[card.name];
 			}
 			save();
+			updateExport();
 		};
 		$scope.upgrade = function() {
 			$scope.currentVersion = VERSION;
@@ -270,7 +272,7 @@ angular.module('faeriaDeckbuilderApp')
 				}
 				str += $scope.deck[card].id + ($scope.deck[card].quantity > 1 ? ',' + $scope.deck[card].quantity : '');
 			}
-			var serialized = ($scope.deckName ? $scope.deckName : '') + '' + '@' + str + '.'+$scope.currentVersion;
+			var serialized = ($scope.deckName ? $scope.deckName : '') + '' + '@' + str + '.' + $scope.currentVersion;
 			return serialized;
 		}
 
@@ -315,6 +317,120 @@ angular.module('faeriaDeckbuilderApp')
 			});
 		}
 
+		$scope.exportData = '';
+		$scope.export = function() {
+			$modal.open({
+				templateUrl: 'exportModal.html',
+				controller: ExportModalCtrl,
+				resolve: {
+					exportData: function() {
+						return $scope.exportData;
+					}
+				}
+			});
+		};
+
+		$scope.import = function() {
+			var modalInstance = $modal.open({
+				templateUrl: 'importModal.html',
+				controller: ImportModalCtrl
+			});
+
+			modalInstance.result.then(function(data) {
+				if (!data) {
+					return;
+				}
+				try {
+					$scope.deck = {};
+					var lineData = data.split('\n');
+					lineData.forEach(function(line) {
+						if (!line) {
+							return;
+						}
+						//handle deck name
+						if (line[0] === '[') {
+							if (line.indexOf('"') !== -1) {
+								$scope.deckName = line.split('"')[1];
+							}
+							return;
+						}
+						//handle type
+						if (line[0] === '/') {
+							return;
+						}
+
+						//handle cards
+						var quantity;
+						var num = line[0];
+						if (!isNaN(Number(num))) {
+							quantity = Number(num);
+							line = line.replace(num + ' ', '');
+							if (line[0] === ' ') {
+								line = line.slice(1, line.length);
+							}
+						} else {
+							quantity = 1;
+						}
+
+						var parsed = false;
+						$scope.allCards.cards.forEach(function(card) {
+							if (card.name.toLowerCase() === line.toLowerCase()) {
+								for (var i = 0; i < quantity; i++) {
+									$scope.addToDeck(card);
+								}
+								parsed = true;
+							}
+						});
+						if (!parsed) {
+							console.log('Failed to parse ', line);
+						}
+					});
+				} catch (e) {
+					alert('Error importing.');
+				}
+			});
+		};
+
+		var ImportModalCtrl = function($scope, $modalInstance) {
+			$scope.importDeck = '';
+			$scope.ok = function(deck) {
+				$modalInstance.close(deck);
+			};
+			$scope.cancel = function() {
+				$modalInstance.close();
+			};
+		};
+
+		var ExportModalCtrl = function($scope, $modalInstance, exportData) {
+			$scope.exportData = exportData;
+			$scope.ok = function() {
+				$modalInstance.close();
+			};
+		};
+
+		function updateExport() {
+			var props = ['Creature', 'Event', 'Structure'];
+			$scope.exportData = '[deck="' + $scope.deckName + '"]\n';
+			props.forEach(function(prop, i) {
+				var newText = '';
+				for (var id in $scope.deck) {
+					if ($scope.deck[id].type === prop.toLowerCase()) {
+						newText += $scope.deck[id].quantity > 1 ? $scope.deck[id].quantity + ' ' : '';
+						newText += $scope.deck[id].name + '\n';
+					}
+				}
+				if (newText.length > 0) {
+					if (i > 0) {
+						$scope.exportData += '\n';
+					}
+					newText = '// ' + prop + 's\n' + newText;
+					$scope.exportData += newText;
+				}
+			});
+			$scope.exportData += '[/deck]';
+		}
+
+
 		//when we get cards we parse the url
 		$scope.$watch('allCards.cards', function() {
 			//if we havent got a list back, ignore it
@@ -323,11 +439,11 @@ angular.module('faeriaDeckbuilderApp')
 			}
 			var deck = $location.hash();
 			if (deck.length === 5 && deck.indexOf('@') === -1) {
-				$http.get('/load?shortKey='+deck).success(function(data) {
+				$http.get('/load?shortKey=' + deck).success(function(data) {
 					unserialize(data.data[0].fullInfo);
 					$location.hash(deck);
 					$scope.isShared = true;
-					$scope.sharedUrl = 'faeriadecks.com/deckbuilder#'+deck;
+					$scope.sharedUrl = 'faeriadecks.com/deckbuilder#' + deck;
 				});
 				return;
 			}

@@ -122,6 +122,7 @@ form .help-inline {
 	margin-left: -150px;
 	width: 300px;
 	text-align: center;
+	z-index: 10;
 }
 
 .land-blue {
@@ -314,7 +315,8 @@ form .help-inline {
   box-shadow: none;
 }
 .image-popup-container .popover-title,
-.image-popup-container .popover.right .arrow {
+.image-popup-container .popover.right .arrow,
+.image-popup-container .popover.left .arrow {
   display: none;
 }
 .image-popup-container .popover-content img {
@@ -325,4 +327,15 @@ form .help-inline {
 .cardlist .hdr-bar form {
 	margin-right: 10px;
 	margin-top: 10px;
+}
+
+.topbtn {
+	margin-right: 5px;
+}
+
+.modal-body textarea {
+	width: 90%;
+	min-height: 400px;
+	margin: 0 auto;
+	display: block;
 }

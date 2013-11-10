@@ -15,6 +15,14 @@
 		<button class="sharebtn btn btn-primary pull-right" ng-show="isShared" ng-click="showUrl=!showUrl">
 			<i class="icon-globe icon-white"></i> Is Shared
 		</button>
+		<button class="btn pull-right topbtn" ng-click="export()">
+			<i class="icon-white icon-upload" /> 
+			Export
+		</button>
+		<button class="btn pull-right topbtn" ng-click="import()">
+			<i class="icon-white icon-download" /> 
+			Import
+		</button>
 		<form class="deckname form pull-right">
 			<input placeholder="Deck Name" type="text" class="input" ng-model="deckName">
 		</form>
