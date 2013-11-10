@@ -321,7 +321,7 @@ angular.module('faeriaDeckbuilderApp')
 		$scope.export = function() {
 			$modal.open({
 				templateUrl: 'exportModal.html',
-				controller: ExportModalCtrl,
+				controller: 'ExportModalCtrl',
 				resolve: {
 					exportData: function() {
 						return $scope.exportData;
@@ -333,7 +333,7 @@ angular.module('faeriaDeckbuilderApp')
 		$scope.import = function() {
 			var modalInstance = $modal.open({
 				templateUrl: 'importModal.html',
-				controller: ImportModalCtrl
+				controller: 'ImportModalCtrl'
 			});
 
 			modalInstance.result.then(function(data) {
@@ -389,23 +389,6 @@ angular.module('faeriaDeckbuilderApp')
 					alert('Error importing.');
 				}
 			});
-		};
-
-		var ImportModalCtrl = function($scope, $modalInstance) {
-			$scope.importDeck = '';
-			$scope.ok = function(deck) {
-				$modalInstance.close(deck);
-			};
-			$scope.cancel = function() {
-				$modalInstance.close();
-			};
-		};
-
-		var ExportModalCtrl = function($scope, $modalInstance, exportData) {
-			$scope.exportData = exportData;
-			$scope.ok = function() {
-				$modalInstance.close();
-			};
 		};
 
 		function updateExport() {
