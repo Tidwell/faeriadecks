@@ -393,7 +393,7 @@ angular.module('faeriaDeckbuilderApp')
 
 		function updateExport() {
 			var props = ['Creature', 'Event', 'Structure'];
-			$scope.exportData = '[deck="' + $scope.deckName || '' + '"]\n';
+			$scope.exportData = '[deck="' + ($scope.deckName || '') + '"]\n';
 			props.forEach(function(prop, i) {
 				var newText = '';
 				for (var id in $scope.deck) {
