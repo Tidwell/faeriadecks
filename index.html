@@ -20,7 +20,7 @@
         <meta name="viewport" content="width=device-width">
         <link href="http://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet" type="text/css">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="styles/8558005b.main.css">
+        <link rel="stylesheet" href="styles/9197d07c.main.css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
 </head>
 <body ng-app="faeriaDeckbuilderApp">
@@ -59,7 +59,7 @@
         <script src="components/angular-bootstrap/ui-bootstrap-tpls-0.6.0.min.js"></script>
         <script src="components/faeriacards.js"></script>
 
-        <script src="scripts/9ca63794.scripts.js"></script>
+        <script src="scripts/4bb9e364.scripts.js"></script>
 
         <!-- Google Analytics -->
         <script>
@@ -78,10 +78,20 @@
 
         <script type="text/ng-template" id="exportModal.html">
             <div class="modal-header">
-                <h3>Export Deck</h3>
+                <h3 class="pull-left">Export Deck</h3>
+                <form class="form-inline pull-right">
+                    <label class="inline" ng-class="{active: exportType=='ingame'}">
+                        <input type="radio" ng-model="exportType" value="ingame" /> In-Game
+                    </label class="inline">
+                    <label class="inline" ng-class="{active: exportType=='forum'}">
+                        <input type="radio" ng-model="exportType" value="forum" /> Forum
+                    </label>
+                </form>
+                <div class="clearfix"></div>
             </div>
             <div class="modal-body">
-                <textarea>{{exportData}}</textarea>
+                <textarea ng-show="exportType=='forum'">{{exportData}}</textarea>
+                <textarea ng-show="exportType=='ingame'">{{inGameExportData}}</textarea>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -90,13 +100,23 @@
 
         <script type="text/ng-template" id="importModal.html">
             <div class="modal-header">
-                <h3>Import Deck</h3>
+                <h3 class="pull-left">Import Deck</h3>
+                <form class="form-inline pull-right">
+                    <label class="inline" ng-class="{active: importType=='ingame'}">
+                        <input type="radio" ng-model="importType" value="ingame" /> In-Game
+                    </label class="inline">
+                    <label class="inline" ng-class="{active: importType=='forum'}">
+                        <input type="radio" ng-model="importType" value="forum" /> Forum
+                    </label>
+                </form>
+                <div class="clearfix"></div>
             </div>
             <div class="modal-body">
-                <textarea ng-model="importDeck"></textarea>
+                <textarea ng-model="importDeck" ng-show="importType=='forum'"></textarea>
+                <textarea ng-model="inGameImportDeck" ng-show="importType=='ingame'"></textarea>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="ok(importDeck)">OK</button>
+                <button class="btn btn-primary" ng-click="ok(importDeck, inGameImportDeck, importType)">OK</button>
                 <button class="btn" ng-click="cancel()">Cancel</button>
             </div>
         </script>
