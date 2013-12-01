@@ -325,6 +325,9 @@ angular.module('faeriaDeckbuilderApp')
 				resolve: {
 					exportData: function() {
 						return $scope.exportData;
+					},
+					inGameExportData: function() {
+						return $scope.inGameExportData;
 					}
 				}
 			});
@@ -336,57 +339,95 @@ angular.module('faeriaDeckbuilderApp')
 				controller: 'ImportModalCtrl'
 			});
 
-			modalInstance.result.then(function(data) {
+			modalInstance.result.then(function(obj) {
+				var data = obj.data;
+				var type = obj.type;
+				var lineData;
 				if (!data) {
 					return;
 				}
-				try {
-					$scope.deck = {};
-					var lineData = data.split('\n');
-					lineData.forEach(function(line) {
-						if (!line) {
-							return;
-						}
-						//handle deck name
-						if (line[0] === '[') {
-							if (line.indexOf('"') !== -1) {
-								$scope.deckName = line.split('"')[1];
+				if (type === 'forum') {
+					try {
+						$scope.deck = {};
+						lineData = data.split('\n');
+						lineData.forEach(function(line) {
+							if (!line) {
+								return;
 							}
-							return;
-						}
-						//handle type
-						if (line[0] === '/') {
-							return;
-						}
-
-						//handle cards
-						var quantity;
-						var num = line[0];
-						if (!isNaN(Number(num))) {
-							quantity = Number(num);
-							line = line.replace(num + ' ', '');
-							if (line[0] === ' ') {
-								line = line.slice(1, line.length);
-							}
-						} else {
-							quantity = 1;
-						}
-
-						var parsed = false;
-						$scope.allCards.cards.forEach(function(card) {
-							if (card.name.toLowerCase() === line.toLowerCase()) {
-								for (var i = 0; i < quantity; i++) {
-									$scope.addToDeck(card);
+							//handle deck name
+							if (line[0] === '[') {
+								if (line.indexOf('"') !== -1) {
+									$scope.deckName = line.split('"')[1];
 								}
-								parsed = true;
+								return;
+							}
+							//handle type
+							if (line[0] === '/') {
+								return;
+							}
+
+							//handle cards
+							var quantity;
+							var num = line[0];
+							if (!isNaN(Number(num))) {
+								quantity = Number(num);
+								line = line.replace(num + ' ', '');
+								if (line[0] === ' ') {
+									line = line.slice(1, line.length);
+								}
+							} else {
+								quantity = 1;
+							}
+
+							var parsed = false;
+							$scope.allCards.cards.forEach(function(card) {
+								if (card.name.toLowerCase() === line.toLowerCase()) {
+									for (var i = 0; i < quantity; i++) {
+										$scope.addToDeck(card);
+									}
+									parsed = true;
+								}
+							});
+							if (!parsed) {
+								console.log('Failed to parse ', line);
 							}
 						});
-						if (!parsed) {
-							console.log('Failed to parse ', line);
-						}
-					});
-				} catch (e) {
-					alert('Error importing.');
+					} catch (e) {
+						alert('Error importing.');
+					}
+				} else {
+					try {
+						$scope.deck = {};
+						lineData = data.split('\n');
+						lineData.forEach(function(line) {
+							if (!line) {
+								return;
+							}
+							//handle cards
+							var quantity;
+							var num = line[0];
+							if (!isNaN(Number(num))) {
+								quantity = Number(num);
+								line = line.replace(num + 'x ', '');
+								line = line.replace(/ \([0-9]+\)/, '');
+							}
+
+							var parsed = false;
+							$scope.allCards.cards.forEach(function(card) {
+								if (card.name.toLowerCase() === line.toLowerCase()) {
+									for (var i = 0; i < quantity; i++) {
+										$scope.addToDeck(card);
+									}
+									parsed = true;
+								}
+							});
+							if (!parsed) {
+								console.log('Failed to parse ', '*'+line+'*');
+							}
+						});
+					} catch(e) {
+						alert('Error importing.');
+					}
 				}
 			});
 		};
@@ -395,6 +436,7 @@ angular.module('faeriaDeckbuilderApp')
 			var props = ['Creature', 'Event', 'Structure'];
 			var deckName = $scope.deckName ? $scope.deckName : '';
 			$scope.exportData = '[deck="' + deckName + '"]\n';
+			$scope.inGameExportData = '';
 			props.forEach(function(prop, i) {
 				var newText = '';
 				for (var id in $scope.deck) {
@@ -412,6 +454,10 @@ angular.module('faeriaDeckbuilderApp')
 				}
 			});
 			$scope.exportData += '[/deck]';
+
+			for (var id in $scope.deck) {
+				$scope.inGameExportData += $scope.deck[id].quantity + 'x ' + $scope.deck[id].name + ' (' + $scope.deck[id].id + ')\n';
+			}
 		}
 
 

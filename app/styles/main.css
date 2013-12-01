@@ -339,3 +339,18 @@ form .help-inline {
 	margin: 0 auto;
 	display: block;
 }
+
+.modal-header .form-inline {
+	margin-bottom: 0;
+}
+.modal-header .form-inline label {
+	padding: 5px;
+	border: 1px solid;
+	cursor: pointer;
+}
+.modal-header .form-inline label.active {
+	background: #ccc;
+}
+.modal-header .form-inline input[type="radio"] {
+	display: none;
+}
