@@ -4,7 +4,7 @@ angular.module('faeriaDeckbuilderApp')
 	.controller('ImportModalCtrl', function($scope, $modalInstance) {
 		$scope.importDeck = '';
 		$scope.inGameImportDeck = '';
-		$scope.importType = 'ingame';
+		$scope.importType = 'forum';
 
 		$scope.ok = function(importDeck, inGameImportDeck, importType) {
 			if (importType === 'ingame') {

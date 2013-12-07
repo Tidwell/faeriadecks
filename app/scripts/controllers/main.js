@@ -381,7 +381,8 @@ angular.module('faeriaDeckbuilderApp')
 
 							var parsed = false;
 							$scope.allCards.cards.forEach(function(card) {
-								if (card.name.toLowerCase() === line.toLowerCase()) {
+								var cardName = line.toLowerCase().replace(/ \([0-9]+\)/, '');
+								if (card.name.toLowerCase() === cardName) {
 									for (var i = 0; i < quantity; i++) {
 										$scope.addToDeck(card);
 									}
@@ -441,8 +442,8 @@ angular.module('faeriaDeckbuilderApp')
 				var newText = '';
 				for (var id in $scope.deck) {
 					if ($scope.deck[id].type === prop.toLowerCase()) {
-						newText += $scope.deck[id].quantity > 1 ? $scope.deck[id].quantity + ' ' : '';
-						newText += $scope.deck[id].name + '\n';
+						newText += $scope.deck[id].quantity > 1 ? $scope.deck[id].quantity + ' ' : '1 ';
+						newText += $scope.deck[id].name + ' (' + $scope.deck[id].id + ')\n';
 					}
 				}
 				if (newText.length > 0) {

@@ -256,8 +256,7 @@ module.exports = function (grunt) {
             'styles/fonts/*',
             'img/*',
             'img/cards/*',
-            'old-data/*',
-            'cards.json'
+            'old-data/*'
           ]
         }]
       }
