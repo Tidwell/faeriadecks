@@ -169,6 +169,9 @@ form .help-inline {
 	margin: 5px auto;
 	background-repeat: no-repeat;
 }
+.rarityB {
+	background: url('/img/card_rarity_basic.png');
+}
 .rarityC {
 	background: url('/img/card_rarity_common.png');
 }

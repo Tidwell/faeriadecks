@@ -2,12 +2,12 @@
 
 angular.module('faeriaDeckbuilderApp')
 	.controller('MainCtrl', function($scope, $location, cards, skipReload, $http, $modal) {
-		var VERSION = 3.0;
+		var VERSION = 4.0;
 		var FAERIACARDS = window.FAERIACARDS;
 
 		FAERIACARDS.clearQueue();
 
-		$scope.VERSION = 3.0;
+		$scope.VERSION = 4.0;
 		$scope.currentVersion = VERSION;
 
 		var alert = window.alert;
@@ -25,6 +25,7 @@ angular.module('faeriaDeckbuilderApp')
 		$scope.showEvent = true;
 		$scope.showFate = true;
 
+		$scope.showBasic = true;
 		$scope.showCommon = true;
 		$scope.showUncommon = true;
 		$scope.showEpic = true;
@@ -151,7 +152,7 @@ angular.module('faeriaDeckbuilderApp')
 		$scope.countZeroF = function() {
 			var total = 0;
 			for (var card in $scope.deck) {
-				if ($scope.deck[card].type === 'creature' && !Number($scope.deck[card].faeria)) {
+				if ($scope.deck[card].type === 'Creature' && !Number($scope.deck[card].faeria)) {
 					total += $scope.deck[card].quantity;
 				}
 			}
@@ -174,16 +175,16 @@ angular.module('faeriaDeckbuilderApp')
 				return false;
 			}
 
-			if (item.type === 'creature' && !$scope.showCreature) {
+			if (item.type === 'Creature' && !$scope.showCreature) {
 				return false;
 			}
-			if (item.type === 'structure' && !$scope.showStructure) {
+			if (item.type === 'Structure' && !$scope.showStructure) {
 				return false;
 			}
-			if (item.type === 'event' && !$scope.showEvent) {
+			if (item.type === 'Event' && !$scope.showEvent) {
 				return false;
 			}
-			if (item.type === 'fate' && !$scope.showFate) {
+			if (item.type === 'Fate' && !$scope.showFate) {
 				return false;
 			}
 
@@ -200,6 +201,9 @@ angular.module('faeriaDeckbuilderApp')
 				return false;
 			}
 			if (item.rarity === 'L' && !$scope.showLegendary) {
+				return false;
+			}
+			if (item.rarity === 'B' && !$scope.showBasic) {
 				return false;
 			}
 
@@ -441,7 +445,7 @@ angular.module('faeriaDeckbuilderApp')
 			props.forEach(function(prop, i) {
 				var newText = '';
 				for (var id in $scope.deck) {
-					if ($scope.deck[id].type === prop.toLowerCase()) {
+					if ($scope.deck[id].type === prop) {
 						newText += $scope.deck[id].quantity > 1 ? $scope.deck[id].quantity + ' ' : '1 ';
 						newText += $scope.deck[id].name + ' (' + $scope.deck[id].id + ')\n';
 					}

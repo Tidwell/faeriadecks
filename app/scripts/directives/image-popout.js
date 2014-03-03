@@ -38,6 +38,15 @@ angular.module('faeriaDeckbuilderApp')
 						});
 						$(element).on('shown.bs.popover', function() {
 							if (!imgData) {
+								var ability = card.ability;
+								if (ability) {
+									//do the replacement for the vals
+									var keywordValues = ['Strikeback', 'Charge', 'Protection', 'Accumulator', 'Radiate', 'Curse', 'Rage'];
+									keywordValues.forEach(function(k){
+										var m = ability.match(new RegExp(k+' ([0-9])'));
+										if (m && m.length) { ability = ability.replace(m[0], '['+m[0].replace(' ', '')+']'); }
+									});
+								}
 								FAERIACARDS.queue({
 									card: {
 										name: card.name,
@@ -48,7 +57,7 @@ angular.module('faeriaDeckbuilderApp')
 										attack: card.power ? Number(card.power) : '', // Number
 										life: Number(card.life), // Number
 										type: card.type[0].toUpperCase()+card.type.substring(1), //'Creature', Structure', 'Event'
-										effect: card.ability, //String  non-value keywords can be typed.  keywords with values have to be in the form: [Keyword#]
+										effect: ability, //String  non-value keywords can be typed.  keywords with values have to be in the form: [Keyword#]
 										/*
 						            Ranged attack. [Strikeback3]. Conquest. Flying. [Charge3]. Haste. Haunt. [Protection3]. [Accumulator4]. Jump. Frenzy. Curse. [Radiate4]. Aquatic. Auto-collect. Convoke.
 						            */
